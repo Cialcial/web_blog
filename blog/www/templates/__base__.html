@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        {% block meta %}<!--block meta-->{% endblock %}
+        <title>{% block titile %}cial{% endblock %}- Awesome Python Webapp</title>
+        <link rel="stylesheet" href="/static/css/uikit.min.css">
+        <link rel="stylesheet" href="/static/css/uikit.gradient.min.css">
+        <link rel="stylesheet" href="/static/css/awesome.css"/>
+        <!-- <link rel="stylesheet" href="/static/css/new.css" /> -->
+        <style>
+           
+        </style>
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/sha1.min.js"></script>
+        <script src="/static/js/uikit.min.js"></script>
+        <script src="/static/js/sticky.min.js"></script>
+        <script src="/static/js/vue.min.js"></script>
+        <script src="/static/js/awesome.js"></script>
+        {% block beforehead %}<!--before head-->{% endblock %}
+    </head>
+
+<body>
+    <nav class="uk-navbar uk-navbar-attached uk-margin-bottom">
+        <div class="uk-container uk-container-center">
+            <a href="/" class="uk-navbar-brand">黄紫薇的狗窝</a>
+            <ul class="uk-navbar-nav">
+                <li data-url="blogs"><a href="/"><i class="uk-icon-home"></i>主页</a></li>
+                <li data-url="_blank"><a href="/"><i class="uk-icon-book"></i>读书</a></li>
+                <li><a target="_blank" href="https://github.com/Cialcial"><i class="uk-icon-code"></i>编码</a></li>
+                <li data-url="_blank">{% if __user__.admin %}<a href="/manage/blogs/create"><i class="uk-icon-edit"></i>编辑日志</a>{% endif %}</li>
+                <li data-url="_blank">{% if __user__.admin %}<a href="/manage/blogs"><i class="uk-icon-edit"></i>日志管理</a>{% endif %}</li>
+            </ul>
+            <div class="uk-navbar-flip">
+                <ul class="uk-navbar-nav">
+                {% if __user__ %}
+                    <li class="uk-parent user-name-js" data-uk-dropdpwn>
+                        <a href="#0" class=""><i class="uk-icon-user"></i>{{__user__.name}}</a>
+                        <div class="uk-dropdown uk-dropdown-navbar hover-tab-js">
+                            <ul class="uk-nav uk-nav-navbar">
+                                <li><a href="/signout"><i class="uk-icon-sign-out"></i>退出登录</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                {% else %}
+                    <li><a href="/signin"><i class="uk-icon-sign-in"></i>登录</a></li>
+                    <li><a href="/register"><i class="uk-icon-edit"></i>注册</a></li>
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="uk-container uk-container-center">
+        <div class="uk-grid">
+            <!-- content -->
+            {% block content %}
+            {% endblock %}
+            <!-- // content -->
+        </div>
+    </div>
+
+    <div class="uk-margin-large-top" style="background-color:#eee; border-top:1px solid #ccc;">
+        <div class="uk-container uk-container-center uk-text-center">
+            <div class="uk-panel uk-margin-top uk-margin-bottom">
+                <p>
+                    <a target="_blank" href="#" class="uk-icon-button uk-icon-weibo"></a>
+                    <a target="_blank" href="#" class="uk-icon-button uk-icon-github"></a>
+                    <a target="_blank" href="#" class="uk-icon-button uk-icon-linkedin-square"></a>
+                    <a target="_blank" href="#" class="uk-icon-button uk-icon-twitter"></a>
+                </p>
+                <p>Powered by <a href="#">Awesome Python Webapp</a>. Copyright &copy; 2019. [<a href="/manage/" target="_blank">Manage</a>]</p>
+                <p><a href="http://www.liaoxuefeng.com/" target="_blank">www.liaoxuefeng.com</a>. All rights reserved.</p>
+                <a target="_blank" href="#"><i class="uk-icon-html5" style="font-size:64px; color: #444;"></i></a>
+            </div>
+        </div>
+    </div>
+    <script await type="text/javascript">
+        var ele1 = document.querySelector(".user-name-js");
+        var ele2 = document.querySelector(".hover-tab-js");
+        window.onmousemove = function (event) {
+            // 计算ele1元素位置
+            var l = ele1.offsetLeft;
+            var t = ele1.offsetTop;
+            var r = l + ele1.offsetWidth;
+            var b = t + ele1.offsetHeight;
+
+            // 计算ele2元素文档位置（绝对定位的元素位置计算需要使用递归坐标）
+            var _l = $(ele2).offset().left;
+            var _t = $(ele2).offset().top;
+            var _r = _l + ele2.offsetWidth;
+            var _b = _t + ele2.offsetHeight;
+
+            // 鼠标位置
+            var x = event.pageX;
+            var y = event.pageY;
+
+            //console.log("元素1:", l, r, t, b)
+            //console.log("元素2:", _l,_r, _t,  _b)
+            //console.log("shubiao:", x, y)
+
+            if ((x > l && x < r && y > t && y < b) || (x > _l && x < _r && y > b - 10 && y < _b)) {            
+                ele2.style.display = "block";
+            } else {
+                ele2.style.display = "";
+            }
+            
+        }
+
+    </script>
+</body>
+</html>

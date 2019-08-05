@@ -1,0 +1,7 @@
+
+a.uk-parent{
+    display: block;
+}
+.uk-parent:hover  .uk-dropdown{
+    display: block !important;
+}
